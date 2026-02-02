@@ -1,5 +1,4 @@
-# === CELL FINAL: BUGRESCUE ENGINE ===
-script_content = r'''#!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 🐞 BUGRESCUE V1.0: ENTERPRISE EDITION
 The Autonomous Code Surgeon.
@@ -12,12 +11,15 @@ def install_deps():
     try:
         import tqdm, colorama
     except ImportError:
-        print("⚙️  Installing BugRescue UI dependencies...")
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "tqdm", "colorama", "requests"])
+        # We generally rely on requirements.txt, but this is a failsafe
+        pass
 
-install_deps()
-from tqdm import tqdm
-from colorama import Fore, Back, Style, init
+try:
+    from tqdm import tqdm
+    from colorama import Fore, Back, Style, init
+except ImportError:
+    print("Dependencies missing. Please run: pip install -r requirements.txt")
+    sys.exit(1)
 
 # CONFIG
 VERSION = "v1.0.0-Rescue"
@@ -177,6 +179,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-'''
-with open("bug_rescue.py", "w") as f: f.write(script_content)
-print("✅ BugRescue V1.0 Generated.")
