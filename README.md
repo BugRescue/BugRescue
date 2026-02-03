@@ -1,99 +1,70 @@
-# 🐞 BugRescue
+```markdown
+# 🐞 BugRescue V2.0
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![Docker Ready](https://img.shields.io/badge/docker-ready-green.svg)](https://hub.docker.com/)
-[![Powered By](https://img.shields.io/badge/AI-Qwen2.5-purple.svg)](https://ollama.com/)
+[![Multi-Cloud](https://img.shields.io/badge/AI-OpenAI%20%7C%20Claude%20%7C%20Gemini-purple)](https://openai.com/)
 
-> **"Your Autonomous Code Surgeon."**
-> BugRescue finds crashes, compiles code, and fixes bugs in real-time using local AI.
+> **"Your Hybrid AI Code Surgeon."**
+> BugRescue fixes bugs in real-time. Use **Local AI** for privacy, or switch to **Cloud AI** (GPT-4, Claude) for complex logic.
 
 ---
 
-## ⚡ Why BugRescue?
-Most tools just *tell* you what's wrong. **BugRescue fixes it.**
-It runs your code, watches it crash, analyzes the stack trace, and rewrites the source code until it passes.
-
-| Language | Support Level |
+## ⚡ Key Features
+| Feature | Description |
 | :--- | :--- |
-| **Python** | 🔥 Full Support (Runtime & Logic) |
-| **JavaScript** | ⚡ Node.js Runtime Support |
-| **Go / Rust** | 🦀 Compilation & Concurrency |
-| **C++ / Java** | ☕ Memory Safety & Null Checks |
+| **Hybrid Brain** | Switch between `ollama` (default), `openai`, `anthropic`, or `gemini` with one flag. |
+| **Auto-Fix Loop** | Runs code -> Catches error -> Patches code -> Repeats until fixed. |
+| **Polyglot** | Supports Python, JavaScript, Go, Rust, C++, Java, and more. |
+| **Safety First** | Auto-backups (`.bugrescue_backups/`) and Dry-Run mode. |
 
 ---
 
-## 🚀 Instant Start
+## 🚀 Usage
 
-### 🐳 Option A: Docker (Recommended)
-Zero setup. Runs in an isolated container with all compilers (Rust, Go, Java) pre-installed.
-
+### 1. Default (Local / Privacy Mode)
+Uses Ollama (qwen2.5-coder) running on your machine.
 ```bash
-docker run --rm -it \
-  -v $(pwd):/code \
-  -e OLLAMA_URL="[http://host.docker.internal:11434/api/generate](http://host.docker.internal:11434/api/generate)" \
-  bugrescue/engine /code
+python3 bug_rescue.py ./my-project
 
 ```
 
-### 🐍 Option B: Manual Install
+### 2. Cloud Mode (GPT-4o / Claude 3.5)
 
-Use this if you want to run it directly on your machine.
-*Prerequisites: Python 3.10+, Ollama running locally.*
+For tough bugs, use a smarter model.
 
 ```bash
-# 1. Clone the repo
-git clone [https://github.com/BugRescue/bug-rescue.git](https://github.com/BugRescue/bug-rescue.git)
-cd bug-rescue
+# OpenAI
+python3 bug_rescue.py ./my-project --provider openai --key "sk-..."
 
-# 2. Install dependencies
-pip install -r requirements.txt
+# Anthropic (Best for coding)
+python3 bug_rescue.py ./my-project --provider anthropic --key "sk-ant-..."
 
-# 3. Run the Rescue Agent
-python3 bug_rescue.py /path/to/your/broken/project
+# Google Gemini (Fast & Large Context)
+python3 bug_rescue.py ./my-project --provider gemini --key "AIza..."
 
 ```
 
----
-
-## 📊 Key Features
-
-* **🛡️ Auto-Backup:** Never lose code. Before touching any file, a snapshot is saved to `.bugrescue_backups/`.
-* **📈 HTML Dashboard:** Generates a visual report (`bugrescue_report.html`) after every run showing pass/fail stats.
-* **🧪 Dry-Run Mode:** Use the `--dry-run` flag to see exactly what the AI *would* fix without actually modifying your files.
-* **🧠 Local & Private:** Powered by Ollama. Your code never leaves your machine.
-
----
-
-## 🛠️ Usage & Flags
+### 3. Docker (Enterprise)
 
 ```bash
-usage: bug_rescue.py [-h] [--dry-run] path
-
-positional arguments:
-  path        Project path to scan (e.g., ./my-project)
-
-options:
-  -h, --help  show this help message and exit
-  --dry-run   Audit only. Generates report but does not edit files.
+docker run --rm -it -v $(pwd):/code bugrescue/engine /code --provider openai --key "sk-..."
 
 ```
 
 ---
 
-## 🧠 Supported Vulnerabilities
+## 🛠️ Configuration
 
-BugRescue is trained to detect and fix:
-
-* **Security:** SQL Injection, Hardcoded Secrets, Insecure Randomness.
-* **Concurrency:** Race Conditions (Go/Rust), Deadlocks.
-* **Logic:** Null Pointers, Type Errors, Syntax Crashes.
-* **Infrastructure:** Dangerous Dockerfile configurations.
+| Flag | Description | Default |
+| --- | --- | --- |
+| `--provider` | Choose AI: `ollama`, `openai`, `anthropic`, `gemini` | `ollama` |
+| `--key` | API Key for cloud providers | `None` |
+| `--model` | Override default model (e.g., `gpt-4-turbo`) | Smart Default |
+| `--dry-run` | Audit only. No file changes. | `False` |
 
 ---
-
-## 🤝 Contributing
-
-Open a PR to add support for more languages!
 
 **License:** MIT
+
+```
